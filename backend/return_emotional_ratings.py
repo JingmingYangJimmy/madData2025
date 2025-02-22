@@ -3,7 +3,6 @@ import json
 import re
 
 # Few shot prompt to get emotional ratings for omdb responses
-# TODO: fucntionality to make prompt user based instead of static prompt
 
 
 def get_emotional_ratings(api_key, OMDb_response):
@@ -94,7 +93,7 @@ def get_emotional_ratings(api_key, OMDb_response):
             "Anxious_to_Calm": -0.4 
         },
         "Reasoning": "While the character is given a second chance, the premise of a hitman dealing with the consequences of his actions and being tasked with dangerous assignments creates a sense of tension and underlying sadness. There's a minimal presence of anger, but the overall tone is steeped in anxiety and unease, as the character navigates a morally ambiguous world. The 'Anxious_to_Calm' rating is lowered to reflect this constant state of tension."
-    }"""+OMDb_response + """
+    }""" + str(OMDb_response) + """
     AI:
     """
                     }
@@ -127,5 +126,8 @@ def get_emotional_ratings(api_key, OMDb_response):
 if __name__ == "__main__":
     import sys
     api_key = sys.argv[1]
-    OMDb_response = sys.argv[2]
-    get_emotional_ratings(api_key, OMDb_response)
+    OMDb_file = sys.argv[2]
+    with open(OMDb_file, 'r') as file:
+        movies_data = json.load(file)
+        for movie in movies_data[0:9]:
+            get_emotional_ratings(api_key, movie)
