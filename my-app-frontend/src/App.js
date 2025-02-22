@@ -15,36 +15,36 @@ function App() {
   }, []);
 
   const handleConfirm = async () => {
-    // console.log('Storing values into the database:', barValues);
+    console.log('Storing values into the database:', barValues);
   
-    // try {
-    //   const response = await fetch('/api/store-values', {
-    //     method: 'POST',
-    //     headers: {
-    //       'Content-Type': 'application/json'
-    //     },
-    //     body: JSON.stringify({
-    //       barValues: barValues.reduce((acc, value, index) => {
-    //         const keyMap = ["happy_index", "fear_index", "surprise_index", "anxious_index"];
-    //         acc[keyMap[index]] = value;
-    //         return acc;
-    //       }, {})
-    //     })
-    //   });
+    try {
+      const response = await fetch('/api/store-values', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          barValues: barValues.reduce((acc, value, index) => {
+            const keyMap = ["happy_index", "fear_index", "surprise_index", "anxious_index"];
+            acc[keyMap[index]] = value;
+            return acc;
+          }, {})
+        })
+      });
   
-    //   if (!response.ok) {
-    //     const errorText = await response.text(); // Handle non-JSON errors
-    //     throw new Error(`HTTP error! Status: ${response.status} - ${errorText}`);
-    //   }
+      if (!response.ok) {
+        const errorText = await response.text(); // Handle non-JSON errors
+        throw new Error(`HTTP error! Status: ${response.status} - ${errorText}`);
+      }
   
-    //   const data = await response.json();
-    //   console.log('Stored successfully:', data);
-    //   alert('Values confirmed: ' + JSON.stringify(data.barValues));
+      const data = await response.json();
+      console.log('Stored successfully:', data);
+      alert('Values confirmed: ' + JSON.stringify(data.barValues));
   
-    // } catch (error) {
-    //   console.error('Error storing values:', error);
-    //   alert(`Error: ${error.message}`);
-    // }
+    } catch (error) {
+      console.error('Error storing values:', error);
+      alert(`Error: ${error.message}`);
+    }
   };
 
   return (
@@ -60,7 +60,7 @@ function App() {
             min="-10"
             max="10"
             value={value}
-            onChange={(e) => handleSliderChange(index, e.target.value)}
+            // onChange={(e) => handleSliderChange(index, e.target.value)}
             />
         </div>
       ))}
