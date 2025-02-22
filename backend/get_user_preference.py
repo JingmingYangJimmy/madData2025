@@ -57,11 +57,30 @@ if __name__ == "__main__":
     for movie in movies_data:
         movie["score"] = calculate_score(movie, user_ratings)
 
-    ranked_movies = sorted(
-        movies_data, key=lambda x: x["score"])
+    # Load the data that has all the movie files
+    all_movies_data = load_json('movies_data.json')
 
-    # Print the ranked movie titles
-    ranked_titles = [
-        movie["Title"] for movie in ranked_movies]
-    for idx, title in enumerate(ranked_titles, 1):
-        print(f"{idx}. {title}")
+    merged_movies_data = []
+
+    for movie in movies_data:
+        # Find the matching movie from all_movies_data by Title
+        matching_movie = next(
+            (m for m in all_movies_data if m["Title"] == movie["Title"]), None)
+
+        if matching_movie:
+            # Merge data from both sources
+            # Merges movie_data and all_movies_data
+            merged_movie = {**movie, **matching_movie}
+            merged_movies_data.append(merged_movie)
+
+    # Rank the merged movies by score
+    ranked_movies = sorted(
+        merged_movies_data, key=lambda x: x["score"], reverse=True)
+
+    # Extract titles and posters into a new list
+    ranked_movies_with_posters = [
+        {"Title": movie["Title"], "Poster": movie["Poster"]} for movie in ranked_movies]
+
+    # Output the result as JSON
+    print("Content-Type: application/json\n")
+    print(json.dumps(ranked_movies_with_posters, indent=4))
