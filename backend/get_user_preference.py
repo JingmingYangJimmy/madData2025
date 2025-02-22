@@ -82,5 +82,4 @@ if __name__ == "__main__":
         {"Title": movie["Title"], "Poster": movie["Poster"]} for movie in ranked_movies]
 
     # Output the result as JSON
-    print("Content-Type: application/json\n")
     print(json.dumps(ranked_movies_with_posters, indent=4))

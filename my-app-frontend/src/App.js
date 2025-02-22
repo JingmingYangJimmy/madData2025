@@ -1,5 +1,5 @@
 import React, { useState, useCallback } from 'react';
-import { BrowserRouter as Router, Route, Routes, useNavigate } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, useNavigate, useLocation } from 'react-router-dom';
 import './App.css';
 import happy from './images/happy.png';
 import sad from './images/sad.png';
@@ -10,13 +10,10 @@ import fear from './images/fear.png';
 import surprise from './images/surprise.png';
 import trust from './images/trust.png';
 
-
-
 function Home() {
   const labels = ["Sad or Happy?", "Fear or Angry?", "Surprise or Boredom?", "Anxious or Calm?"];
   const [barValues, setBarValues] = useState([0, 0, 0, 0]);
-  const navigate = useNavigate(); 
-
+  const navigate = useNavigate();
 
   const handleSliderChange = useCallback((index, newValue) => {
     setBarValues(prevValues => {
@@ -42,7 +39,6 @@ function Home() {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({ barValues: formattedData }) // Send as an object
-
       });
   
       if (!response.ok) {
@@ -52,11 +48,12 @@ function Home() {
   
       const data = await response.json();
       console.log('Stored successfully:', data);
-      alert('Values confirmed: ' + JSON.stringify(data.barValues));
-      navigate('/new-page');
+
+      // Pass the movie data to the new page via navigate
+      navigate('/new-page', { state: { barValues, rankedMovies: data.rankedMovies } });
   
     } catch (error) {
-      console.log("that is an error!");
+      console.log("That is an error!");
       console.error('Error storing values:', error.message);
     }
   };
@@ -65,22 +62,20 @@ function Home() {
     <div className="App">
       <h1 style={{ marginTop: "200px" }}>Which movie do you like the most?</h1>
       {barValues.map((value, index) => (
-        <div key={index} className="slider-container" >
-          
-    {index === 0 && <img src={happy} alt="happy" className="my-emoji-left" />}
-    {index === 1 && <img src={fear} alt="sad" className="my-emoji-left" />}
-    {index === 2 && <img src={surprise} alt="surprise" className="my-emoji-left" />}
-    {index === 3 && <img src={trust} alt="anxious" className="my-emoji-left" />}
+        <div key={index} className="slider-container">
+          {index === 0 && <img src={happy} alt="happy" className="my-emoji-left" />}
+          {index === 1 && <img src={fear} alt="sad" className="my-emoji-left" />}
+          {index === 2 && <img src={surprise} alt="surprise" className="my-emoji-left" />}
+          {index === 3 && <img src={trust} alt="anxious" className="my-emoji-left" />}
 
+          <label style={{ fontSize: "35px" }}>
+            {labels[index]}: {value}
+          </label>
 
-    <label style={{ fontSize: "35px"  }}>
-    {labels[index]}: {value}
-    </label>
-
-    {index === 0 && <img src={sad} alt="neutral" className="my-emoji-right" />}
-    {index === 1 && <img src={anger} alt="angry" className="my-emoji-right" />}
-    {index === 2 && <img src={calm} alt="bored" className="my-emoji-right" />}
-    {index === 3 && <img src={disguest} alt="calm" className="my-emoji-right" />}
+          {index === 0 && <img src={sad} alt="neutral" className="my-emoji-right" />}
+          {index === 1 && <img src={anger} alt="angry" className="my-emoji-right" />}
+          {index === 2 && <img src={calm} alt="bored" className="my-emoji-right" />}
+          {index === 3 && <img src={disguest} alt="calm" className="my-emoji-right" />}
 
           <br />
           <input
@@ -89,21 +84,47 @@ function Home() {
             max="10"
             value={value}
             onChange={(e) => handleSliderChange(index, e.target.value)}
-            />
+          />
         </div>
       ))}
       <button onClick={handleConfirm}>Confirm</button>
-      
     </div>
   );
 }
 
-
 function NewPage() {
+  const location = useLocation();
+  const { barValues, rankedMovies } = location.state || { barValues: [], rankedMovies: [] };
+
   return (
     <div className="App">
       <h1>Welcome to the New Interface!</h1>
       <p>Your values have been stored successfully.</p>
+
+      {/* Display user input values */}
+      <h3>User Inputs:</h3>
+      <ul>
+        {Object.entries(barValues).map(([key, value]) => (
+          <li key={key}>
+            {key}: {value}
+          </li>
+        ))}
+      </ul>
+
+      {/* Display ranked movies */}
+      {rankedMovies.length > 0 && (
+        <div className="ranked-movies">
+          <h2>Top Movies:</h2>
+          <div className="movies-list">
+            {rankedMovies.map((movie, index) => (
+              <div key={index} className="movie">
+                <img src={movie.Poster} alt={movie.Title} className="movie-poster" />
+                <h3>{movie.Title}</h3>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   );
 }
