@@ -9,7 +9,7 @@ BASE_URL = "https://www.omdbapi.com/"
 def get_movie_data(title):
     # URL-encode the title
     encoded_title = urllib.parse.quote_plus(title)
-    url = f"{BASE_URL}?t={encoded_title}&plot=full&apikey={API_KEY}"
+    url = f"{BASE_URL}?t={encoded_title}&plot=short&apikey={API_KEY}"
     response = requests.get(url)
     if response.status_code == 200:
         data = response.json()
@@ -44,7 +44,7 @@ def main():
                 print(f"Skipping duplicate or invalid entry for: {title}")
 
     # Save the movie data to a JSON file
-    with open("movies_data.json", "w", encoding="utf-8") as outfile:
+    with open("movies_data_short.json", "w", encoding="utf-8") as outfile:
         json.dump(movie_data_list, outfile, indent=2)
     
     print("Movie data saved to 'movies_data.json'.")
