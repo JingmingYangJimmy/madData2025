@@ -24,13 +24,7 @@ function App() {
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({
-          barValues: currentValues.reduce((acc, value, index) => {
-            const keyMap = ["happy_index", "fear_index", "surprise_index", "anxious_index"];
-            acc[keyMap[index]] = value;
-            return acc;
-          }, {})
-        })
+        body: JSON.stringify({ barValues })
       });
 
       if (!response.ok) {
