@@ -18,18 +18,19 @@ function App() {
     console.log('Storing values into the database:', barValues);
   
     try {
-      const response = await fetch('/api/store-values', {
+      const keyMap = ["happy_index", "fear_index", "surprise_index", "anxious_index"];
+      const formattedData = barValues.reduce((acc, value, index) => {
+        acc[keyMap[index]] = value;
+        return acc;
+      }, {});
+      
+      const response = await fetch('http://localhost:3000/api/store-values', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({
-          barValues: barValues.reduce((acc, value, index) => {
-            const keyMap = ["happy_index", "fear_index", "surprise_index", "anxious_index"];
-            acc[keyMap[index]] = value;
-            return acc;
-          }, {})
-        })
+        body: JSON.stringify({ barValues: formattedData }) // Send as an object
+
       });
   
       if (!response.ok) {
@@ -42,8 +43,8 @@ function App() {
       alert('Values confirmed: ' + JSON.stringify(data.barValues));
   
     } catch (error) {
-      console.error('Error storing values:', error);
-      alert(`Error: ${error.message}`);
+      console.log("non");
+      console.error('Error storing values:', error.message);
     }
   };
 
