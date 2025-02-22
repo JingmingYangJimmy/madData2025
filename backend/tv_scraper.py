@@ -113,4 +113,4 @@ def scrape_tv_series_titles(max_clicks=5):
     return final_titles
 
 if __name__ == "__main__":
-    scrape_tv_series_titles(max_clicks=30)
+    scrape_tv_series_titles(max_clicks=100)
