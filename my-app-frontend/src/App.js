@@ -18,7 +18,7 @@ function App() {
     console.log('Storing values into the database:', barValues);
   
     try {
-      const response = await fetch('/api/store-values', {
+      const response = await fetch('https://chooseyourmovie.vercel.app/api/store-values', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
