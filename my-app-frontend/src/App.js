@@ -6,37 +6,44 @@ function App() {
   const labels = ["Sad or Happy?", "Fear or Angry?", "Surprise or Boredom?", "Anxious or Calm?"];
   const [barValues, setBarValues] = useState([0, 0, 0, 0]);
 
-  const handleSliderChange = (index, newValue) => {
+  const handleSliderChange = useCallback((index, newValue) => {
     setBarValues(prevValues => {
       const newValues = [...prevValues];
       newValues[index] = Number(newValue);
       return newValues;
     });
-  };
+  }, []);
 
   const handleConfirm = async () => {
-    const currentValues = [...barValues]; // Ensure latest state values
-    console.log('Storing values into the database:', currentValues);
-
+    console.log('Storing values into the database:', barValues);
+  
     try {
       const response = await fetch('/api/store-values', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ barValues })
+        body: JSON.stringify({
+          barValues: barValues.reduce((acc, value, index) => {
+            const keyMap = ["happy_index", "fear_index", "surprise_index", "anxious_index"];
+            acc[keyMap[index]] = value;
+            return acc;
+          }, {})
+        })
       });
-
+  
       if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
+        const errorText = await response.text(); // Handle non-JSON errors
+        throw new Error(`HTTP error! Status: ${response.status} - ${errorText}`);
       }
-
+  
       const data = await response.json();
       console.log('Stored successfully:', data);
-      alert('Values confirmed: ' + currentValues.join(', '));
-
+      alert('Values confirmed: ' + JSON.stringify(data.barValues));
+  
     } catch (error) {
       console.error('Error storing values:', error);
+      alert(`Error: ${error.message}`);
     }
   };
 
@@ -53,8 +60,8 @@ function App() {
             min="-10"
             max="10"
             value={value}
-            onChange={(e) => handleSliderChange(index, Number(e.target.value))}
-          />
+            onChange={(e) => handleSliderChange(index, e.target.value)}
+            />
         </div>
       ))}
       <button onClick={handleConfirm}>Confirm</button>
