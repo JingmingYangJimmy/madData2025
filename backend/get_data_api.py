@@ -29,12 +29,20 @@ def main():
         titles = [line.strip() for line in file if line.strip()]
 
     movie_data_list = []
+    seen_ids = set()  # Keep track of imdbIDs that we've already added
+
     for title in titles:
         print(f"Fetching data for: {title}")
         data = get_movie_data(title)
         if data:
-            movie_data_list.append(data)
-    
+            # Check if we've seen this movie (by imdbID) before
+            imdb_id = data.get("imdbID")
+            if imdb_id and imdb_id not in seen_ids:
+                movie_data_list.append(data)
+                seen_ids.add(imdb_id)
+            else:
+                print(f"Skipping duplicate or invalid entry for: {title}")
+
     # Save the movie data to a JSON file
     with open("movies_data.json", "w", encoding="utf-8") as outfile:
         json.dump(movie_data_list, outfile, indent=2)

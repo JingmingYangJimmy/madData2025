@@ -123,4 +123,4 @@ def scrape_imdb_titles_selenium(max_clicks=5):
     return final_titles
 
 if __name__ == "__main__":
-    scrape_imdb_titles_selenium(max_clicks=5)
+    scrape_imdb_titles_selenium(max_clicks=30)
