@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import './App.css';
+import happy from './images/happy.png';
+
 
 function App() {
   const labels = ["Sad or Happy?", "Fear or Angry?", "Suprise or Boredom?","Anxious or Calm?"];
@@ -21,7 +23,7 @@ function App() {
     // Example API call (uncomment and adjust as needed):
     /*
     fetch('/api/store-values', {
-      method: 'POST',
+      method: 'GET',
       headers: {
         'Content-Type': 'application/json'
       },
@@ -38,6 +40,7 @@ function App() {
   return (
     <div className="App">
       <h2>Which movie you like the most!!!</h2>
+      <img src={happy} alt="Sample" className="my-image" />
       {barValues.map((value, index) => (
         <div key={index} style={{ marginBottom: '10px' }}>
           <label>
