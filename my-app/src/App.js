@@ -37,7 +37,7 @@ function App() {
 
   return (
     <div className="App">
-      <h2>Which movie you like the most</h2>
+      <h2>Which movie you like the most!!!</h2>
       {barValues.map((value, index) => (
         <div key={index} style={{ marginBottom: '10px' }}>
           <label>
