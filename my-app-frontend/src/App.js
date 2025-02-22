@@ -13,8 +13,8 @@ import trust from './images/trust.png';
 
 
 function Home() {
-  const labels = ["Sad or Happy?", "Fear or Angry?", "Surprise or Boredom?", "Anxious or Calm?"];
-  const [barValues, setBarValues] = useState([0, 0, 0, 0]);
+  const labels = ["Sad or Happy?", "Fear or Angry?", "Surprise or Boredom?", "Which year you want to watch?"];
+  const [barValues, setBarValues] = useState([0, 0, 0, 1975]);
   const navigate = useNavigate(); 
 
 
