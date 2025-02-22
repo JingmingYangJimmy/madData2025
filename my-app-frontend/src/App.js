@@ -16,26 +16,31 @@ function App() {
     });
   };
 
-  // Handle confirm button click
-  const handleConfirm = () => {
+  const handleConfirm = async () => {
     console.log('Storing values into the database:', barValues);
 
-    // Example API call (uncomment and adjust as needed):
-    /*
-    fetch('/api/store-values', {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ barValues })
-    })
-      .then(response => response.json())
-      .then(data => console.log('Stored successfully:', data))
-      .catch(error => console.error('Error storing values:', error));
-    */
+    try {
+      const response = await fetch('/api/store-values', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ barValues })
+      });
 
-    alert('Values confirmed: ' + barValues.join(', '));
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+
+      const data = await response.json();
+      console.log('Stored successfully:', data);
+      alert('Values confirmed: ' + barValues.join(', '));
+
+    } catch (error) {
+      console.error('Error storing values:', error);
+    }
   };
+
 
   return (
     <div className="App">
