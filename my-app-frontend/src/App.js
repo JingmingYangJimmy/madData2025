@@ -1,6 +1,15 @@
 import React, { useState, useCallback } from 'react';
 import './App.css';
 import happy from './images/happy.png';
+import sad from './images/sad.png';
+import anger from './images/anger.png';
+import calm from './images/calm.png';
+import disguest from './images/disguest.png';
+import fear from './images/fear.png';
+import surprise from './images/surprise.png';
+import trust from './images/trust.png';
+
+
 
 function App() {
   const labels = ["Sad or Happy?", "Fear or Angry?", "Surprise or Boredom?", "Anxious or Calm?"];
@@ -23,7 +32,7 @@ function App() {
         acc[keyMap[index]] = value;
         return acc;
       }, {});
-      
+
       const response = await fetch('http://localhost:3000/api/store-values', {
         method: 'POST',
         headers: {
@@ -43,19 +52,32 @@ function App() {
       alert('Values confirmed: ' + JSON.stringify(data.barValues));
   
     } catch (error) {
-      console.log("non");
+      console.log("that is an error!");
       console.error('Error storing values:', error.message);
     }
   };
 
   return (
     <div className="App">
-      <h2>Which movie do you like the most?</h2>
+      <h1 style={{ marginTop: "200px" }}>Which movie do you like the most?</h1>
       {barValues.map((value, index) => (
-        <div key={index} >
-        <img src={happy} alt="happy" className="my-emoji" style={{ width: "30px", height: "auto", marginRight: "30px" }} />
+        <div key={index} className="slider-container" >
+          
+    {index === 0 && <img src={happy} alt="happy" className="my-emoji-left" />}
+    {index === 1 && <img src={fear} alt="sad" className="my-emoji-left" />}
+    {index === 2 && <img src={surprise} alt="surprise" className="my-emoji-left" />}
+    {index === 3 && <img src={trust} alt="anxious" className="my-emoji-left" />}
 
-          <label>{labels[index]}: {value}</label>
+
+    <label style={{ fontSize: "35px"  }}>
+    {labels[index]}: {value}
+    </label>
+
+    {index === 0 && <img src={sad} alt="neutral" className="my-emoji-right" />}
+    {index === 1 && <img src={anger} alt="angry" className="my-emoji-right" />}
+    {index === 2 && <img src={calm} alt="bored" className="my-emoji-right" />}
+    {index === 3 && <img src={disguest} alt="calm" className="my-emoji-right" />}
+
           <br />
           <input
             type="range"
@@ -67,6 +89,7 @@ function App() {
         </div>
       ))}
       <button onClick={handleConfirm}>Confirm</button>
+      
     </div>
   );
 }
