@@ -28,6 +28,13 @@
   color: #61dafb;
 }
 
+.my-emoji {
+  width: 30px;  /* Adjust emoji size */
+  height: auto;
+  margin-right: 10px;
+  align-items: center; /* Ensure vertical alignment */
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);

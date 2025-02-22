@@ -50,9 +50,10 @@ function App() {
   return (
     <div className="App">
       <h2>Which movie do you like the most?</h2>
-      <img src={happy} alt="Sample" className="my-image" />
       {barValues.map((value, index) => (
-        <div key={index} style={{ marginBottom: '10px' }}>
+        <div key={index} >
+        <img src={happy} alt="happy" className="my-emoji" style={{ width: "30px", height: "auto", marginRight: "30px" }} />
+
           <label>{labels[index]}: {value}</label>
           <br />
           <input
@@ -60,7 +61,7 @@ function App() {
             min="-10"
             max="10"
             value={value}
-            // onChange={(e) => handleSliderChange(index, e.target.value)}
+            onChange={(e) => handleSliderChange(index, e.target.value)}
             />
         </div>
       ))}
