@@ -58,3 +58,24 @@
     transform: rotate(360deg);
   }
 }
+
+/* Add this to your App.css file */
+.ranked-movies {
+  margin-top: 50px;
+}
+
+.movies-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.movie {
+  width: 200px;
+  text-align: center;
+}
+
+.movie-poster {
+  width: 100%;
+  height: auto;
+}
