@@ -43,5 +43,121 @@
       "anxious_index": 0
     },
     "timestamp": "2025-02-22T20:46:37.943Z"
+  },
+  {
+    "barValues": {
+      "happy_index": 4,
+      "fear_index": 0,
+      "surprise_index": 0,
+      "anxious_index": 6
+    },
+    "timestamp": "2025-02-22T20:50:26.430Z"
+  },
+  {
+    "barValues": {
+      "happy_index": -5,
+      "fear_index": -5,
+      "surprise_index": -3,
+      "anxious_index": -6
+    },
+    "timestamp": "2025-02-22T20:52:12.763Z"
+  },
+  {
+    "barValues": {
+      "happy_index": -5,
+      "fear_index": -5,
+      "surprise_index": 5,
+      "anxious_index": 3
+    },
+    "timestamp": "2025-02-22T20:52:24.059Z"
+  },
+  {
+    "barValues": {
+      "happy_index": -5,
+      "fear_index": -5,
+      "surprise_index": -6,
+      "anxious_index": 3
+    },
+    "timestamp": "2025-02-22T20:52:27.295Z"
+  },
+  {
+    "barValues": {
+      "happy_index": 10,
+      "fear_index": 10,
+      "surprise_index": 10,
+      "anxious_index": 10
+    },
+    "timestamp": "2025-02-22T20:52:51.101Z"
+  },
+  {
+    "barValues": {
+      "happy_index": 0,
+      "fear_index": 0,
+      "surprise_index": 0,
+      "anxious_index": 5
+    },
+    "timestamp": "2025-02-22T21:02:03.365Z"
+  },
+  {
+    "barValues": {
+      "happy_index": -3,
+      "fear_index": -5,
+      "surprise_index": 6,
+      "anxious_index": 0
+    },
+    "timestamp": "2025-02-22T21:02:15.170Z"
+  },
+  {
+    "barValues": {
+      "happy_index": 0,
+      "fear_index": 0,
+      "surprise_index": 10,
+      "anxious_index": 0
+    },
+    "timestamp": "2025-02-22T22:04:12.543Z"
+  },
+  {
+    "barValues": {
+      "happy_index": 0,
+      "fear_index": 0,
+      "surprise_index": 0,
+      "anxious_index": 0
+    },
+    "timestamp": "2025-02-22T22:04:25.125Z"
+  },
+  {
+    "barValues": {
+      "happy_index": -7,
+      "fear_index": 0,
+      "surprise_index": 0,
+      "anxious_index": 0
+    },
+    "timestamp": "2025-02-22T22:04:49.359Z"
+  },
+  {
+    "barValues": {
+  },
+  {
+    "barValues": {
+      "happy_index": 0,
+  {
+    "barValues": {
+      "happy_index": 0,
+      "fear_index": 0,
+      "surprise_index": 0,
+  },
+  {
+    "barValues": {
+      "happy_index": 0,
+      "fear_index": 0,
+      "surprise_index": 0,
+      "anxious_index": 0
+    },
+
+      "fear_index": 0,
+      "surprise_index": 0,
+      "anxious_index": 0
+    },
+
   }
 ]
