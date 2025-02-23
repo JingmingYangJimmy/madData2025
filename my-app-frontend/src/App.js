@@ -156,16 +156,16 @@ function NewPage() {
             <motion.div
               key={index}
               className="relative w-48 h-72 shrink-0 cursor-pointer"
-              onMouseEnter={() => setHoveredMovie(movie.id)}
+              onMouseEnter={() => setHoveredMovie(index)}  // Use index instead of movie.id
               onMouseLeave={() => setHoveredMovie(null)}
-              animate={hoveredMovie === movie.id ? { scale: 1.1 } : { scale: 1 }}
+              animate={hoveredMovie === index ? { scale: 1.1 } : { scale: 1 }} // Compare with index
               transition={{ duration: 0.3 }}
             >
               <img src={movie.Poster} alt={movie.Title} className="w-full h-full object-cover" />
               <h3 className="absolute bottom-4 left-4 text-white">{movie.Title}</h3>
 
-              {/* Display Plot and Year when hovered */}
-              {hoveredMovie === movie.id && (
+              {/* Display Plot and Year only for the hovered movie */}
+              {hoveredMovie === index && (
                 <div className="absolute bottom-0 left-0 bg-black bg-opacity-70 text-white p-4 w-full">
                   <p>{movie.Plot}</p>
                   <p>{movie.Year}</p>
