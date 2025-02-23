@@ -1,47 +1,18 @@
 [
   {
-    "barValues": [
-      0,
-      0,
-      0,
-      4
-    ],
-    "timestamp": "2025-02-22T20:38:29.766Z"
-  },
-  {
-    "barValues": [
-      0,
-      0,
-      0,
-      4
-    ],
-    "timestamp": "2025-02-22T20:38:40.932Z"
-  },
-  {
-    "barValues": [
-      0,
-      0,
-      0,
-      4
-    ],
-    "timestamp": "2025-02-22T20:38:49.180Z"
-  },
-  {
-    "barValues": [
-      -3,
-      0,
-      0,
-      4
-    ],
-    "timestamp": "2025-02-22T20:39:06.620Z"
+    "barValues": {
+      "happy_index": 0.5,
+      "calm_index": 0.6,
+      "time_index": 2010
+    },
+    "timestamp": "2025-02-23T01:08:06.727Z"
   },
   {
     "barValues": {
-      "happy_index": 4,
-      "fear_index": 0,
-      "surprise_index": 0,
-      "anxious_index": 0
+      "happy_index": 0.5,
+      "calm_index": 0.6,
+      "time_index": 2010
     },
-    "timestamp": "2025-02-22T20:46:37.943Z"
+    "timestamp": "2025-02-23T01:10:15.823Z"
   }
 ]

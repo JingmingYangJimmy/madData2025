@@ -1,6 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const fs = require('fs');
+const { exec } = require('child_process'); // Import child_process to run the Python script
 
 const app = express();
 const port = 3000;
@@ -31,7 +32,35 @@ app.post('/api/store-values', (req, res) => {
   fs.writeFileSync('data.json', JSON.stringify(storedData, null, 2));
 
   console.log('Data stored in file:', storedData);
-  res.json({ message: 'Data stored successfully', storedData });
+
+  // Execute the Python script to process the movie preferences
+  exec('python3 get_user_preference.py', (err, stdout, stderr) => {
+    if (err) {
+      console.error(`Error executing Python script: ${err}`);
+      return res.status(500).json({ error: 'Failed to process movie preferences' });
+    }
+
+    if (stderr) {
+      console.error(`stderr: ${stderr}`);
+    }
+
+    console.log("Python script output:", stdout); // Log the output from Python script
+
+    let rankedMovies;
+    try {
+      rankedMovies = JSON.parse(stdout); // Parse the JSON output from Python
+    } catch (error) {
+      console.error("Error parsing Python script output:", error);
+      return res.status(500).json({ error: 'Failed to parse movie data' });
+    }
+
+    // Send back the response with both the stored data and the ranked movies
+    res.json({
+      message: 'Data stored and movie preferences calculated successfully',
+      storedData,
+      rankedMovies,
+    });
+  });
 });
 
 // Start Server
