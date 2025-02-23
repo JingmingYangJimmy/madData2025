@@ -31,7 +31,7 @@ def main():
     seen_ids = set()
 
     for title in titles:
-        print(f"Fetching data for TV series: {title}")
+       # print(f"Fetching data for TV series: {title}")
         data = get_tv_series_data(title)
         if data:
             imdb_id = data.get("imdbID")
