@@ -14,7 +14,7 @@ def load_json(filepath):
         return json.load(file)  # Use json.load() for normal JSON format
 
 
-def calculate_score(movie, user_ratings): # not currently implemented, see below
+def calculate_score(movie, user_ratings):  # not currently implemented, see below
     return (
         abs(movie["AggregatedEmotion"]["Sad-Happy"] - user_ratings["happy_index"]) +
         abs(movie["AggregatedEmotion"]
@@ -107,5 +107,6 @@ if __name__ == "__main__":
     desired_columns = ["Title", "Poster", "imdbID", "Year", "Plot"]
     filtered_df_m = merged_df_m[desired_columns]
     filtered_df_s = merged_df_s[desired_columns]
-    print(filtered_df_m.head(100).to_json(orient="records", indent=4))
-    print(filtered_df_s.head(100).to_json(orient="records", indent=4))
+    merged_filtered_df = pd.concat(
+        [filtered_df_m, filtered_df_s], ignore_index=True)
+    print(merged_filtered_df.head(100).to_json(orient="records", indent=4))
