@@ -105,8 +105,8 @@ if __name__ == "__main__":
     merged_df_m = res_df_s_sorted.merge(movies_df, on="Title", how="left")
     merged_df_s = res_df_m_sorted.merge(series_df, on="Title", how="left")
     desired_columns = ["Title", "Poster", "imdbID", "Year", "Plot"]
-    filtered_df_m = merged_df_m[desired_columns]
-    filtered_df_s = merged_df_s[desired_columns]
+    filtered_df_m = merged_df_m[desired_columns].head(100)
+    filtered_df_s = merged_df_s[desired_columns].head(100)
     merged_filtered_df = pd.concat(
         [filtered_df_m, filtered_df_s], ignore_index=True)
-    print(merged_filtered_df.head(100).to_json(orient="records", indent=4))
+    print(filtered_df_m.to_json(orient="records", indent=4))
