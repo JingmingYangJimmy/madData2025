@@ -59,7 +59,11 @@ if __name__ == "__main__":
 
     # Extract titles and posters into a new list
     ranked_movies_with_posters = [
-        {"Title": movie["Title"], "Poster": movie["Poster"]} for movie in ranked_movies]
+        {"Title": movie["Title"],
+         "Poster": movie["Poster"],
+         "imdbID": movie["imdbID"],
+         "Year": movie["Year"],
+         "Plot": movie["Plot"]} for movie in ranked_movies]
 
     # Output the result as JSON
     print(json.dumps(ranked_movies_with_posters, indent=4))

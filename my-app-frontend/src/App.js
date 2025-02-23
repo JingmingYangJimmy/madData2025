@@ -99,7 +99,7 @@ function NewPage() {
   const location = useLocation();
   const { barValues, rankedMovies } = location.state || { barValues: [], rankedMovies: [] };
 
-  const movies = rankedMovies || [];
+  const movies = (rankedMovies || []).slice(0, 10);
 
   const [hoveredMovie, setHoveredMovie] = useState(null);
   const [movieHovered, setMovieHovered] = useState(false);
@@ -138,15 +138,6 @@ function NewPage() {
     <div className="App">
       <h1>Here are your results!</h1>
 
-      {/* <h3>User Inputs:</h3>
-      <ul>
-        {Object.entries(barValues).map(([key, value]) => (
-          <li key={key}>
-            {key}: {value}
-          </li>
-        ))}
-      </ul> */}
-
       {/* Movie Carousel */}
       <div
         className="relative w-full h-80 overflow-hidden bg-black"
@@ -172,11 +163,18 @@ function NewPage() {
             >
               <img src={movie.Poster} alt={movie.Title} className="w-full h-full object-cover" />
               <h3 className="absolute bottom-4 left-4 text-white">{movie.Title}</h3>
+
+              {/* Display Plot and Year when hovered */}
+              {hoveredMovie === movie.id && (
+                <div className="absolute bottom-0 left-0 bg-black bg-opacity-70 text-white p-4 w-full">
+                  <p>{movie.Plot}</p>
+                  <p>{movie.Year}</p>
+                </div>
+              )}
             </motion.div>
           ))}
         </motion.div>
       </div>
-
     </div>
   );
 }
