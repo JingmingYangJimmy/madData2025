@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect, useRef } from 'react';
 import { BrowserRouter as Router, Route, Routes, useNavigate, useLocation } from 'react-router-dom';
 import './App.css';
 import happy from './images/happy.png';
@@ -11,6 +11,7 @@ import calm from './images/calm.png';
 // import trust from './images/trust.png';
 import dinosaur from './images/dinosaur.png'
 import smartphone from './images/smartphone.png'
+import { motion, useAnimation } from "framer-motion";
 
 function Home() {
 
@@ -98,38 +99,89 @@ function NewPage() {
   const location = useLocation();
   const { barValues, rankedMovies } = location.state || { barValues: [], rankedMovies: [] };
 
+  const movies = rankedMovies || [];
+
+  const [hoveredMovie, setHoveredMovie] = useState(null);
+  const [movieHovered, setMovieHovered] = useState(false);
+  const movieControls = useAnimation();
+  const movieTimeoutRef = useRef(null);
+
+  const startMovieAnimation = () => {
+    movieControls.start({
+      x: [0, -movies.length * 200],
+      transition: {
+        repeat: Infinity,
+        duration: 20,
+        ease: "linear",
+      },
+    });
+  };
+
+  useEffect(() => {
+    if (movies.length === 0) return;
+
+    if (!movieHovered) {
+      movieTimeoutRef.current = setTimeout(() => {
+        startMovieAnimation();
+      }, 5000);
+    } else {
+      movieControls.stop();
+      clearTimeout(movieTimeoutRef.current);
+    }
+
+    return () => {
+      clearTimeout(movieTimeoutRef.current);
+    };
+  }, [movieHovered, movieControls, startMovieAnimation, movies.length]);
+
   return (
     <div className="App">
-      <h1>Welcome to the New Interface!</h1>
-      <p>Your values have been stored successfully.</p>
+      <h1>Here are your results!</h1>
 
-      {/* Display user input values */}
-      <h3>User Inputs:</h3>
+      {/* <h3>User Inputs:</h3>
       <ul>
         {Object.entries(barValues).map(([key, value]) => (
           <li key={key}>
             {key}: {value}
           </li>
         ))}
-      </ul>
+      </ul> */}
 
-      {/* Display ranked movies */}
-      {rankedMovies.length > 0 && (
-        <div className="ranked-movies">
-          <h2>Top Movies:</h2>
-          <div className="movies-list">
-            {rankedMovies.map((movie, index) => (
-              <div key={index} className="movie">
-                <img src={movie.Poster} alt={movie.Title} className="movie-poster" />
-                <h3>{movie.Title}</h3>
-              </div>
-            ))}
-          </div>
-        </div>
-      )}
+      {/* Movie Carousel */}
+      <div
+        className="relative w-full h-80 overflow-hidden bg-black"
+        onMouseEnter={() => setMovieHovered(true)}
+        onMouseLeave={() => setMovieHovered(false)}
+      >
+        <motion.div
+          className="flex space-x-4 cursor-grab"
+          animate={movieControls}
+          initial={{ x: 0 }}
+          drag="x"
+          dragConstraints={{ left: -movies.length * 200, right: 0 }}
+          dragMomentum={false}
+        >
+          {[...movies, ...movies].map((movie, index) => (
+            <motion.div
+              key={index}
+              className="relative w-48 h-72 shrink-0 cursor-pointer"
+              onMouseEnter={() => setHoveredMovie(movie.id)}
+              onMouseLeave={() => setHoveredMovie(null)}
+              animate={hoveredMovie === movie.id ? { scale: 1.1 } : { scale: 1 }}
+              transition={{ duration: 0.3 }}
+            >
+              <img src={movie.Poster} alt={movie.Title} className="w-full h-full object-cover" />
+              <h3 className="absolute bottom-4 left-4 text-white">{movie.Title}</h3>
+            </motion.div>
+          ))}
+        </motion.div>
+      </div>
+
     </div>
   );
 }
+
+
 
 function App() {
   return (
