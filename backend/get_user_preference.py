@@ -9,9 +9,8 @@ def load_json(filepath):
 def calculate_score(movie, user_ratings):
     return (
         abs(movie["EmotionalRatings"]["Sad_to_Happy"] - user_ratings["happy_index"]) +
-        abs(movie["EmotionalRatings"]["Fear_to_Anger"] - user_ratings["fear_index"]) +
         abs(movie["EmotionalRatings"]["Anxious_to_Calm"] -
-            user_ratings["anxious_index"])
+            user_ratings["calm_index"])
     )
 
 
@@ -48,9 +47,8 @@ if __name__ == "__main__":
 
     user_ratings = {
         "happy_index": latest_bar_values["happy_index"],
-        "fear_index": latest_bar_values["fear_index"],
         ##
-        "anxious_index": latest_bar_values["anxious_index"]
+        "calm_index": latest_bar_values["calm_index"]
     }
 
     # Rank the movies

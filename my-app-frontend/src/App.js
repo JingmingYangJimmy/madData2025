@@ -30,7 +30,7 @@ function Home() {
     console.log('Storing values into the database:', barValues);
   
     try {
-      const keyMap = ["happy_index", "fear_index", "surprise_index", "anxious_index"];
+      const keyMap = ["happy_index", "calm_index", "time_index"];
       const formattedData = barValues.reduce((acc, value, index) => {
         acc[keyMap[index]] = value;
         return acc;
