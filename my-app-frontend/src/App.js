@@ -64,7 +64,7 @@ function Home() {
 
   return (
     <div className="App">
-      <h1 style={{ marginTop: "200px" }}>Which movie do you like the most?</h1>
+      <h1 style={{ marginTop: "200px" }}>How do you feel?</h1>
       {barValues.map((value, index) => (
         <div key={index} className="slider-container">
           {index === 0 && <img src={calm} alt="calm" className="my-emoji-left" />}
@@ -99,7 +99,9 @@ function NewPage() {
   const location = useLocation();
   const { barValues, rankedMovies } = location.state || { barValues: [], rankedMovies: [] };
 
-  const movies = (rankedMovies || []).slice(0, 10);
+  const movies = (rankedMovies && rankedMovies.length > 0
+    ? rankedMovies.filter((movie) => movie.Year >= barValues[2]).slice(0, 10)
+    : []);
 
   const [hoveredMovie, setHoveredMovie] = useState(null);
   const [movieHovered, setMovieHovered] = useState(false);
