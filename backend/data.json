@@ -396,5 +396,112 @@
       ]
     },
     "timestamp": "2025-02-23T15:59:06.397Z"
+  },
+  {
+    "barValues": {
+      "happy_index": 0,
+      "calm_index": 0,
+      "time_index": 1951,
+      "genre": [
+        "Family",
+        "Crime",
+        "Sci-Fi"
+      ]
+    },
+    "timestamp": "2025-02-23T16:46:18.517Z"
+  },
+  {
+    "barValues": {
+      "happy_index": 0,
+      "calm_index": 0,
+      "time_index": 1938,
+      "genre": []
+    },
+    "timestamp": "2025-02-23T16:46:45.440Z"
+  },
+  {
+    "barValues": {
+      "happy_index": -1,
+      "calm_index": -1,
+      "time_index": 1975,
+      "genre": []
+    },
+    "timestamp": "2025-02-23T16:47:00.851Z"
+  },
+  {
+    "barValues": {
+      "happy_index": 0,
+      "calm_index": 0,
+      "time_index": 1994,
+      "genre": []
+    },
+    "timestamp": "2025-02-23T16:47:12.025Z"
+  },
+  {
+    "barValues": {
+      "happy_index": 0,
+      "calm_index": 0,
+      "time_index": 2025,
+      "genre": []
+    },
+    "timestamp": "2025-02-23T16:47:15.723Z"
+  },
+  {
+    "barValues": {
+      "happy_index": 0,
+      "calm_index": 0,
+      "time_index": 2024,
+      "genre": []
+    },
+    "timestamp": "2025-02-23T16:47:22.983Z"
+  },
+  {
+    "barValues": {
+      "happy_index": 0,
+      "calm_index": 0,
+      "time_index": 2014,
+      "genre": []
+    },
+    "timestamp": "2025-02-23T16:47:28.437Z"
+  },
+  {
+    "barValues": {
+      "happy_index": 1,
+      "calm_index": 1,
+      "time_index": 2005,
+      "genre": [
+        "Biography",
+        "Musical",
+        "Short"
+      ]
+    },
+    "timestamp": "2025-02-23T16:47:48.847Z"
+  },
+  {
+    "barValues": {
+      "happy_index": 0,
+      "calm_index": 0,
+      "time_index": 1931,
+      "genre": []
+    },
+    "timestamp": "2025-02-23T16:48:44.306Z"
+  },
+  {
+    "barValues": {
+      "happy_index": 0,
+      "calm_index": 0,
+      "time_index": 2008,
+      "genre": []
+    },
+    "timestamp": "2025-02-23T16:49:01.703Z"
+  },
+  {
+    "barValues": {
+      "happy_index": 0,
+      "calm_index": 0,
+      "time_index": 2022,
+      "genre": []
+    },
+    "timestamp": "2025-02-23T16:49:30.030Z"
   }
 ]

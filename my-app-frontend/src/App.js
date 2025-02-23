@@ -5,6 +5,7 @@ import happy from './images/happy.png';
 import sad from './images/sad.png';
 import anger from './images/anger.png';
 import calm from './images/calm.png';
+
 // import disguest from './images/disguest.png';
 // import fear from './images/fear.png';
 // import surprise from './images/surprise.png';
@@ -15,7 +16,7 @@ import { motion, useAnimation } from "framer-motion";
 
 function Home() {
 
-  const labels = ["Sad or Happy?", "Tense or Calm?", "Which year you want to watch?"];
+  const labels = ["Sad or Happy?", "Tense or Calm?", "Movie released on and after?"];
   const [barValues, setBarValues] = useState([0, 0, 1975]);
   const [likedGenres, setLikedGenres] = useState([]);
   const [dislikedGenres] = useState([]);
@@ -97,8 +98,8 @@ function Home() {
       <h1 style={{ marginTop: "100px" }}>How do you feel?</h1>
       {barValues.map((value, index) => (
         <div key={index} className="slider-container">
-          {index === 0 && <img src={happy} alt="calm" className="my-emoji-left" />}
-          {index === 1 && <img src={calm} alt="happy" className="my-emoji-left" />}
+          {index === 0 && <img src={sad} alt="calm" className="my-emoji-left" />}
+          {index === 1 && <img src={anger} alt="happy" className="my-emoji-left" />}
           {index === 2 && <img src={dinosaur} alt="old" className="my-emoji-left" />}
 
           <label style={{ fontSize: "35px" }}>
