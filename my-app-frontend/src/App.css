@@ -66,16 +66,56 @@
 
 .movies-list {
   display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
-}
-
-.movie {
-  width: 200px;
-  text-align: center;
+  flex-direction: row; /* Ensure movies are in a horizontal row */
+  overflow-x: auto; /* Enables horizontal scrolling if needed */
+  overflow-y: hidden; /* Prevents vertical scrolling */
+  white-space: nowrap; /* Prevents wrapping */
+  gap: 20px; /* Adds space between movies */
+  padding: 10px;
 }
 
 .movie-poster {
   width: 100%;
   height: auto;
+}
+
+/* Adjust the title position on the carousel */
+.movie-title {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  font-size: 1.2rem;
+  color: white;
+}
+
+/* Add these new CSS rules */
+.flex {
+  display: flex;
+  flex-direction: row; /* Ensure horizontal layout */
+  gap: 10rem; /* Replace space-x-4 with modern gap */
+}
+
+.w-48 {
+  width: 12rem; /* 192px */
+}
+
+.h-72 {
+  height: 18rem; /* 288px */
+}
+
+.shrink-0 {
+  flex-shrink: 0;
+}
+
+.cursor-grab {
+  cursor: grab;
+}
+
+.cursor-grab:active {
+  cursor: grabbing;
+}
+
+/* Existing .relative class addition */
+.relative {
+  position: relative;
 }
