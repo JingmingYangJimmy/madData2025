@@ -19,6 +19,11 @@ app.post('/api/store-values', (req, res) => {
     return res.status(400).json({ error: 'Invalid input' });
   }
 
+  // Ensure genre is an array
+  if (!Array.isArray(barValues.genre)) {
+    barValues.genre = [];
+  }
+
   // Read existing data or create an empty array
   let storedData = [];
   if (fs.existsSync('data.json')) {

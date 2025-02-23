@@ -1,5 +1,6 @@
 import json
 import numpy as np
+import pandas as pd
 
 
 def load_jsonl(filepath):
@@ -22,59 +23,56 @@ def calculate_score(movie, user_ratings):
 
 
 if __name__ == "__main__":
-    # Load movies data as JSONL and user data as normal JSON
-    movies_data = load_json('../EmotionalMovies.json')
+    # LOAD MOVIE DATA WITH EMOTIONAL RATINGS
+    df_s = pd.read_json(
+        "../EmotionalMovies.json")[["Title", "Genre", "AggregatedEmotion"]]
 
+    # Generated list of genres
+    lsts = []
+    for gs in df_s["Genre"]:
+        for g in gs.split(", "):
+            if g not in lsts:
+                lsts.append(g)
+
+    # Change movie data with emotional ratings to desired format
+    df_s["SadHappy"] = df_s["AggregatedEmotion"].apply(
+        lambda x: x["Sad-Happy"])
+    df_s["TenseCalm"] = df_s["AggregatedEmotion"].apply(
+        lambda x: x["Tense-Calm"])
+    df_s['genre_indices'] = df_s['Genre'].apply(
+        lambda x: [lsts.index(g) for g in x.split(", ") if g in lsts])
+    df_s['genre_row'] = df_s['genre_indices'].apply(
+        lambda x: [1 if i in x else 0 for i in range(len(lsts))])
+    df_s["matrixrow"] = df_s.apply(
+        lambda row: [row["SadHappy"], row["TenseCalm"]] + row["genre_row"], axis=1)
+    df_s[["Title", "matrixrow"]]
+    X = np.array(df_s["matrixrow"].tolist())
+
+    # LOAD USER DATA
     backend_data = load_json('data.json')  # Normal JSON for backend data
 
     # Extract the latest barValues from backend data
     latest_bar_values = backend_data[-1]["barValues"]
 
     # GENRE
-    lst = ['Drama', 'Music', 'Animation', 'News', 'Musical', 'Biography', 'Action', 'Comedy', 'Film-Noir', 'Short', 'Documentary',
-           'Thriller', 'Sci-Fi', 'Adventure', 'War', 'Horror', 'Western', 'Mystery', 'Family', 'History', 'Crime', 'Sport', 'Romance', 'Fantasy']
-    genre_indices = [lst.index(g)
-                     for g in latest_bar_values['genre'] if g in lst]
-    genre_row = [1 if i in genre_indices else 0 for i in range(len(lst))]
+    genre_indices = [lsts.index(g)
+                     for g in latest_bar_values['genre'] if g in lsts]
+    genre_row = [1 if i in genre_indices else 0 for i in range(len(lsts))]
     user_ratings = np.array([latest_bar_values['happy_index'],
                              latest_bar_values['calm_index']] + genre_row)
 
-    user_ratings = {
-        "happy_index": latest_bar_values["happy_index"],
-        "calm_index": latest_bar_values["calm_index"]
-    }
+    array = X@user_ratings
 
-    # Rank the movies
-    for movie in movies_data:
-        movie["score"] = calculate_score(movie, user_ratings)
+    res_df_s = pd.DataFrame(array, columns=["Value"])
+    res_df_s["Title"] = df_s["Title"]
+    res_df_s_sorted = res_df_s.sort_values(by="Value", ascending=False)
 
-    # Load the data that has all the movie files
-    all_movies_data = load_json('movies_data.json')
+    # LOAD ALLL MOVIES DATA FROM movies_data.json
+    movies_data = load_json("movies_data.json")
+    movies_df = pd.DataFrame(movies_data)
 
-    merged_movies_data = []
-
-    for movie in movies_data:
-        # Find the matching movie from all_movies_data by Title
-        matching_movie = next(
-            (m for m in all_movies_data if m["Title"] == movie["Title"]), None)
-
-        if matching_movie:
-            # Merge data from both sources
-            merged_movie = {**movie, **matching_movie}
-            merged_movies_data.append(merged_movie)
-
-    # Rank the merged movies by score
-    ranked_movies = sorted(
-        merged_movies_data, key=lambda x: x["score"], reverse=True)
-
-    # Extract titles and posters into a new list
-    ranked_movies_with_posters = [
-        {"Title": movie["Title"],
-         "Poster": movie["Poster"],
-         "imdbID": movie["imdbID"],
-         "Year": movie["Year"],
-         # outputs top 100 to stop buffering
-         "Plot": movie["Plot"]} for movie in ranked_movies[0:100]]
-
-    # Output the result as JSON
-    print(json.dumps(ranked_movies_with_posters, indent=4))
+    # Merge by title and output to frontend
+    merged_df = res_df_s_sorted.merge(movies_df, on="Title", how="left")
+    desired_columns = ["Title", "Poster", "imdbID", "Year", "Plot"]
+    filtered_df = merged_df[desired_columns]
+    print(filtered_df.head(100).to_json(orient="records", indent=4))
