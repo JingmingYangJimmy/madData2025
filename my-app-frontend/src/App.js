@@ -15,8 +15,10 @@ import { motion, useAnimation } from "framer-motion";
 
 function Home() {
 
-  const labels = ["Happy or Sad?", "Calm or Tense", "Which year you want to watch?"];
+  const labels = ["Sad or Happy?", "Tense or Calm?", "Which year you want to watch?"];
   const [barValues, setBarValues] = useState([0, 0, 1975]);
+  const [selectedGenres, setSelectedGenres] = useState([]);
+  const genres = ['Drama', 'Comedy', 'History', 'War', 'Romance', 'Crime', 'Thriller', 'Action', 'Documentary', 'Sport', 'Horror', 'Adventure', 'Mystery', 'Fantasy', 'Western', 'Animation', 'Family', 'News',  'Sci-Fi', 'Biography',  'Musical', 'Short', 'Music'];
   const navigate = useNavigate(); 
 
   const handleSliderChange = useCallback((index, newValue) => {
@@ -27,6 +29,14 @@ function Home() {
     });
   }, []);
 
+  const toggleGenre = (genre) => {
+    setSelectedGenres(prevGenres =>
+      prevGenres.includes(genre)
+        ? prevGenres.filter(g => g !== genre)
+        : [...prevGenres, genre]
+    );
+  };
+
   const handleConfirm = async () => {
     console.log('Storing values into the database:', barValues);
   
@@ -36,6 +46,7 @@ function Home() {
         acc[keyMap[index]] = value;
         return acc;
       }, {});
+      formattedData.genre = selectedGenres;
 
       const response = await fetch('http://localhost:3000/api/store-values', {
         method: 'POST',
@@ -67,16 +78,16 @@ function Home() {
       <h1 style={{ marginTop: "200px" }}>How do you feel?</h1>
       {barValues.map((value, index) => (
         <div key={index} className="slider-container">
-          {index === 0 && <img src={calm} alt="calm" className="my-emoji-left" />}
-          {index === 1 && <img src={happy} alt="happy" className="my-emoji-left" />}
+          {index === 0 && <img src={happy} alt="calm" className="my-emoji-left" />}
+          {index === 1 && <img src={calm} alt="happy" className="my-emoji-left" />}
           {index === 2 && <img src={dinosaur} alt="old" className="my-emoji-left" />}
 
           <label style={{ fontSize: "35px" }}>
             {labels[index]}: {value}
           </label>
 
-          {index === 0 && <img src={sad} alt="sad" className="my-emoji-right" />}
-          {index === 1 && <img src={anger} alt="anger" className="my-emoji-right" />}
+          {index === 0 && <img src={happy} alt="happy" className="my-emoji-right" />}
+          {index === 1 && <img src={calm} alt="calm" className="my-emoji-right" />}
           {index === 2 && <img src={smartphone} alt="smartphone" className="my-emoji-right" />}
 
           <br />
@@ -90,6 +101,18 @@ function Home() {
           />
         </div>
       ))}
+      <h2>Select Genres:</h2>
+      <div className="genre-container">
+        {genres.map((genre) => (
+          <button
+            key={genre}
+            className={selectedGenres.includes(genre) ? "selected" : ""}
+            onClick={() => toggleGenre(genre)}
+          >
+            {genre}
+          </button>
+        ))}
+      </div>
       <button onClick={handleConfirm}>Confirm</button>
     </div>
   );
