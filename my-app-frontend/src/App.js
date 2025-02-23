@@ -17,7 +17,8 @@ function Home() {
 
   const labels = ["Sad or Happy?", "Tense or Calm?", "Which year you want to watch?"];
   const [barValues, setBarValues] = useState([0, 0, 1975]);
-  const [selectedGenres, setSelectedGenres] = useState([]);
+  const [likedGenres, setLikedGenres] = useState([]);
+  const [dislikedGenres] = useState([]);
   const genres = ['Drama', 'Comedy', 'History', 'War', 'Romance', 'Crime', 'Thriller', 'Action', 'Documentary', 'Sport', 'Horror', 'Adventure', 'Mystery', 'Fantasy', 'Western', 'Animation', 'Family', 'News',  'Sci-Fi', 'Biography',  'Musical', 'Short', 'Music'];
   const navigate = useNavigate(); 
 
@@ -30,11 +31,14 @@ function Home() {
   }, []);
 
   const toggleGenre = (genre) => {
-    setSelectedGenres(prevGenres =>
-      prevGenres.includes(genre)
-        ? prevGenres.filter(g => g !== genre)
-        : [...prevGenres, genre]
-    );
+    setLikedGenres(prevGenres => {
+      if (prevGenres.includes(genre)) {
+        return prevGenres.filter(g => g !== genre);
+      } else if (prevGenres.length<3){
+        return [...prevGenres, genre];
+      }
+      return prevGenres;
+    });
   };
 
   const handleConfirm = async () => {
@@ -46,7 +50,7 @@ function Home() {
         acc[keyMap[index]] = value;
         return acc;
       }, {});
-      formattedData.genre = selectedGenres;
+      formattedData.genre = likedGenres;
 
       const response = await fetch('http://localhost:3000/api/store-values', {
         method: 'POST',
@@ -75,7 +79,22 @@ function Home() {
 
   return (
     <div className="App">
-      <h1 style={{ marginTop: "200px" }}>How do you feel?</h1>
+      <h1>What genres do you like?</h1>
+      <p style={{ fontSize: "18px", marginTop: "-10px", color: "gray" }}>(Max 3)</p>
+      <div className="genre-container">
+        {genres.map((genre) => (
+          <button
+            key={genre}
+            className={likedGenres.includes(genre) ? "selected" : ""}
+            onClick={() => toggleGenre(genre, "like")}
+            style={{ padding: "15px 15px", fontSize: "18px", minWidth: "120px" }}
+            disabled={dislikedGenres.includes(genre) || likedGenres.length >= 3} // Prevent selecting more than 3 genres
+          >
+            {genre}
+          </button>
+        ))}
+      </div>
+      <h1 style={{ marginTop: "100px" }}>How do you feel?</h1>
       {barValues.map((value, index) => (
         <div key={index} className="slider-container">
           {index === 0 && <img src={happy} alt="calm" className="my-emoji-left" />}
@@ -101,18 +120,6 @@ function Home() {
           />
         </div>
       ))}
-      <h2>Select Genres:</h2>
-      <div className="genre-container">
-        {genres.map((genre) => (
-          <button
-            key={genre}
-            className={selectedGenres.includes(genre) ? "selected" : ""}
-            onClick={() => toggleGenre(genre)}
-          >
-            {genre}
-          </button>
-        ))}
-      </div>
       <button onClick={handleConfirm}>Confirm</button>
     </div>
   );
