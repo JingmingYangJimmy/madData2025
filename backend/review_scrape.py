@@ -130,7 +130,7 @@ def process_and_write_movie(movie, session, output_filename, lock):
     #print(f"Processed and wrote movie: {movie.get('Title')} ({movie.get('imdbID')})")
 
 if __name__ == "__main__":
-    movies_filename = r"/Users/arjun/Documents/GitHub/madData2025/backend/movies_data.json"
+    movies_filename = r"C:/Users/bazzi/Desktop/maddata/madData2025/backend/movies_data.json"
     output_filename = "movies_emotion_scores.jsonl"
     
     #print(f"Loading movies from {movies_filename}...")
