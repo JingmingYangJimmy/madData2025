@@ -38,5 +38,13 @@
       "time_index": 1975
     },
     "timestamp": "2025-02-23T03:57:50.235Z"
+  },
+  {
+    "barValues": {
+      "happy_index": 0,
+      "calm_index": 0,
+      "time_index": 1997
+    },
+    "timestamp": "2025-02-23T04:06:48.458Z"
   }
 ]
