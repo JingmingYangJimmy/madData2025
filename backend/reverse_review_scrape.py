@@ -33,17 +33,15 @@ def get_imdb_reviews(imdb_id, session):
     print(f"[{imdb_id}] Successfully fetched reviews page.")
     soup = BeautifulSoup(response.text, "html.parser")
     review_containers = soup.find_all("div", class_="ipc-html-content-inner-div")
-    print(f"[{imdb_id}] Found {len(review_containers)} potential review container(s).")
     
     reviews = []
     for container in review_containers:
         review_text = container.get_text(strip=True)
         if review_text:
             reviews.append(review_text)
-    print(f"[{imdb_id}] Extracted {len(reviews)} reviews.")
     return reviews
 
-print("Initializing zero-shot classifier...")
+# Initialize the zero-shot classifier
 classifier = pipeline("zero-shot-classification", model="facebook/bart-large-mnli")
 
 def compute_year_metric(year_str, min_year=1920, max_year=2025):
@@ -127,13 +125,11 @@ def process_and_write_movie(movie, session, output_filename, lock):
         with open(output_filename, "a", encoding="utf-8") as out_file:
             out_file.write(json.dumps(result) + "\n")
             out_file.flush()
-    print(f"Processed and wrote movie: {movie.get('Title')} ({movie.get('imdbID')})")
 
 if __name__ == "__main__":
-    movies_filename = r"C:/Users/bazzi/Desktop/maddata/madData2025/backend/movies_data.json"
+    movies_filename = r"/Users/arjun/Documents/GitHub/madData2025/backend/movies_data.json"
     output_filename = "movies_emotion_scores.json"
     
-    print(f"Loading movies from {movies_filename}...")
     with open(movies_filename, "r", encoding="utf-8") as f:
         movies = json.load(f)
     
@@ -153,9 +149,12 @@ if __name__ == "__main__":
     session = requests.Session()
     max_workers = 4  # Adjust based on your system resources.
     
+    # Process movies from last to first.
+    movies_reversed = list(reversed(movies))
+    
     with ThreadPoolExecutor(max_workers=max_workers) as executor:
         futures = []
-        for movie in movies:
+        for movie in movies_reversed:
             imdb_id = movie.get("imdbID")
             if imdb_id in processed:
                 print(f"Skipping {movie.get('Title')} ({imdb_id}) as already processed.")
