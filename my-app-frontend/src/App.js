@@ -15,7 +15,7 @@ import { motion, useAnimation } from "framer-motion";
 
 function Home() {
 
-  const labels = ["Happy or Sad?", "Calm or Tense", "Which year you want to watch?"];
+  const labels = ["Sad or Happy?", "Tense or Calm?", "Which year you want to watch?"];
   const [barValues, setBarValues] = useState([0, 0, 1975]);
   const navigate = useNavigate(); 
 
@@ -67,16 +67,16 @@ function Home() {
       <h1 style={{ marginTop: "200px" }}>How do you feel?</h1>
       {barValues.map((value, index) => (
         <div key={index} className="slider-container">
-          {index === 0 && <img src={calm} alt="calm" className="my-emoji-left" />}
-          {index === 1 && <img src={happy} alt="happy" className="my-emoji-left" />}
+          {index === 0 && <img src={sad} alt="sad" className="my-emoji-left" />}
+          {index === 1 && <img src={anger} alt="anger" className="my-emoji-left" />}
           {index === 2 && <img src={dinosaur} alt="old" className="my-emoji-left" />}
 
           <label style={{ fontSize: "35px" }}>
             {labels[index]}: {value}
           </label>
 
-          {index === 0 && <img src={sad} alt="sad" className="my-emoji-right" />}
-          {index === 1 && <img src={anger} alt="anger" className="my-emoji-right" />}
+          {index === 0 && <img src={happy} alt="happy" className="my-emoji-right" />}
+          {index === 1 && <img src={calm} alt="calm" className="my-emoji-right" />}
           {index === 2 && <img src={smartphone} alt="smartphone" className="my-emoji-right" />}
 
           <br />

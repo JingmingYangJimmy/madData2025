@@ -1,4 +1,5 @@
 import json
+import numpy as np
 
 
 def load_jsonl(filepath):
@@ -22,12 +23,21 @@ def calculate_score(movie, user_ratings):
 
 if __name__ == "__main__":
     # Load movies data as JSONL and user data as normal JSON
-    movies_data = load_jsonl('../movies_emotion_scores.jsonl')
+    movies_data = load_json('../EmotionalMovies.json')
 
     backend_data = load_json('data.json')  # Normal JSON for backend data
 
     # Extract the latest barValues from backend data
     latest_bar_values = backend_data[-1]["barValues"]
+
+    # GENRE
+    lst = ['Drama', 'Music', 'Animation', 'News', 'Musical', 'Biography', 'Action', 'Comedy', 'Film-Noir', 'Short', 'Documentary',
+           'Thriller', 'Sci-Fi', 'Adventure', 'War', 'Horror', 'Western', 'Mystery', 'Family', 'History', 'Crime', 'Sport', 'Romance', 'Fantasy']
+    genre_indices = [lst.index(g)
+                     for g in latest_bar_values['genre'] if g in lst]
+    genre_row = [1 if i in genre_indices else 0 for i in range(len(lst))]
+    user_ratings = np.array([latest_bar_values['happy_index'],
+                             latest_bar_values['calm_index']] + genre_row)
 
     user_ratings = {
         "happy_index": latest_bar_values["happy_index"],
@@ -63,7 +73,8 @@ if __name__ == "__main__":
          "Poster": movie["Poster"],
          "imdbID": movie["imdbID"],
          "Year": movie["Year"],
-         "Plot": movie["Plot"]} for movie in ranked_movies]
+         # outputs top 100 to stop buffering
+         "Plot": movie["Plot"]} for movie in ranked_movies[0:100]]
 
     # Output the result as JSON
     print(json.dumps(ranked_movies_with_posters, indent=4))
