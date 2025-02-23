@@ -46,5 +46,355 @@
       "time_index": 1997
     },
     "timestamp": "2025-02-23T04:06:48.458Z"
+  },
+  {
+    "barValues": {
+      "happy_index": 0.7,
+      "calm_index": 0,
+      "time_index": 1975,
+      "genre": [
+        "Western",
+        "Fantasy",
+        "Action"
+      ]
+    },
+    "timestamp": "2025-02-23T15:20:00.109Z"
+  },
+  {
+    "barValues": {
+      "happy_index": 0,
+      "calm_index": 0,
+      "time_index": 1975,
+      "genre": [
+        "Adventure"
+      ]
+    },
+    "timestamp": "2025-02-23T15:20:10.957Z"
+  },
+  {
+    "barValues": {
+      "happy_index": 0,
+      "calm_index": 0,
+      "time_index": 1975,
+      "genre": [
+        "Mystery"
+      ]
+    },
+    "timestamp": "2025-02-23T15:20:55.310Z"
+  },
+  {
+    "barValues": {
+      "happy_index": 0,
+      "calm_index": 0,
+      "time_index": 1975,
+      "genre": [
+        "Mystery",
+        "Horror"
+      ]
+    },
+    "timestamp": "2025-02-23T15:20:58.498Z"
+  },
+  {
+    "barValues": {
+      "happy_index": 0,
+      "calm_index": 0,
+      "time_index": 1975,
+      "genre": [
+        "Mystery",
+        "Horror"
+      ]
+    },
+    "timestamp": "2025-02-23T15:21:00.391Z"
+  },
+  {
+    "barValues": {
+      "happy_index": 0,
+      "calm_index": 0,
+      "time_index": 1975,
+      "genre": [
+        "Mystery",
+        "Horror"
+      ]
+    },
+    "timestamp": "2025-02-23T15:21:00.661Z"
+  },
+  {
+    "barValues": {
+      "happy_index": 0,
+      "calm_index": 0,
+      "time_index": 1975,
+      "genre": [
+        "Mystery",
+        "Horror"
+      ]
+    },
+    "timestamp": "2025-02-23T15:21:00.850Z"
+  },
+  {
+    "barValues": {
+      "happy_index": 0,
+      "calm_index": 0,
+      "time_index": 1975,
+      "genre": [
+        "Mystery",
+        "Horror"
+      ]
+    },
+    "timestamp": "2025-02-23T15:21:01.074Z"
+  },
+  {
+    "barValues": {
+      "happy_index": 0,
+      "calm_index": 0,
+      "time_index": 1975,
+      "genre": [
+        "Mystery",
+        "Horror"
+      ]
+    },
+    "timestamp": "2025-02-23T15:21:10.726Z"
+  },
+  {
+    "barValues": {
+      "happy_index": 0,
+      "calm_index": 0,
+      "time_index": 1975,
+      "genre": [
+        "Mystery",
+        "Horror"
+      ]
+    },
+    "timestamp": "2025-02-23T15:21:10.737Z"
+  },
+  {
+    "barValues": {
+      "happy_index": 0,
+      "calm_index": 0,
+      "time_index": 1975,
+      "genre": [
+        "Mystery",
+        "Horror"
+      ]
+    },
+    "timestamp": "2025-02-23T15:21:10.741Z"
+  },
+  {
+    "barValues": {
+      "happy_index": 0,
+      "calm_index": 0,
+      "time_index": 1975,
+      "genre": [
+        "Mystery",
+        "Horror"
+      ]
+    },
+    "timestamp": "2025-02-23T15:21:10.745Z"
+  },
+  {
+    "barValues": {
+      "happy_index": 0,
+      "calm_index": 0,
+      "time_index": 1975,
+      "genre": [
+        "Mystery",
+        "Horror"
+      ]
+    },
+    "timestamp": "2025-02-23T15:21:10.764Z"
+  },
+  {
+    "barValues": {
+      "happy_index": 0,
+      "calm_index": 0,
+      "time_index": 1975,
+      "genre": [
+        "Mystery",
+        "Horror"
+      ]
+    },
+    "timestamp": "2025-02-23T15:21:10.768Z"
+  },
+  {
+    "barValues": {
+      "happy_index": 0,
+      "calm_index": 0,
+      "time_index": 1975,
+      "genre": [
+        "Mystery",
+        "Horror"
+      ]
+    },
+    "timestamp": "2025-02-23T15:21:11.927Z"
+  },
+  {
+    "barValues": {
+      "happy_index": 0,
+      "calm_index": 0,
+      "time_index": 1975,
+      "genre": [
+        "Mystery",
+        "Horror"
+      ]
+    },
+    "timestamp": "2025-02-23T15:21:11.932Z"
+  },
+  {
+    "barValues": {
+      "happy_index": 0,
+      "calm_index": 0,
+      "time_index": 1975,
+      "genre": [
+        "Mystery",
+        "Horror"
+      ]
+    },
+    "timestamp": "2025-02-23T15:21:12.009Z"
+  },
+  {
+    "barValues": {
+      "happy_index": 0,
+      "calm_index": 0,
+      "time_index": 1975,
+      "genre": [
+        "Mystery",
+        "Horror"
+      ]
+    },
+    "timestamp": "2025-02-23T15:21:12.014Z"
+  },
+  {
+    "barValues": {
+      "happy_index": 0,
+      "calm_index": 0,
+      "time_index": 1975,
+      "genre": [
+        "Mystery",
+        "Horror"
+      ]
+    },
+    "timestamp": "2025-02-23T15:21:12.018Z"
+  },
+  {
+    "barValues": {
+      "happy_index": 0,
+      "calm_index": 0,
+      "time_index": 1975,
+      "genre": [
+        "Mystery",
+        "Horror",
+        "Animation"
+      ]
+    },
+    "timestamp": "2025-02-23T15:21:12.029Z"
+  },
+  {
+    "barValues": {
+      "happy_index": 0,
+      "calm_index": 0,
+      "time_index": 1975,
+      "genre": [
+        "Sport"
+      ]
+    },
+    "timestamp": "2025-02-23T15:21:26.936Z"
+  },
+  {
+    "barValues": {
+      "happy_index": 0,
+      "calm_index": 0,
+      "time_index": 1975,
+      "genre": [
+        "Family"
+      ]
+    },
+    "timestamp": "2025-02-23T15:21:38.412Z"
+  },
+  {
+    "barValues": {
+      "happy_index": 0,
+      "calm_index": 0,
+      "time_index": 1975,
+      "genre": [
+        "Fantasy",
+        "Biography"
+      ]
+    },
+    "timestamp": "2025-02-23T15:23:16.346Z"
+  },
+  {
+    "barValues": {
+      "happy_index": 0,
+      "calm_index": 0,
+      "time_index": 1975,
+      "genre": [
+        "Crime"
+      ]
+    },
+    "timestamp": "2025-02-23T15:24:06.378Z"
+  },
+  {
+    "barValues": {
+      "happy_index": 0,
+      "calm_index": 0,
+      "time_index": 1975,
+      "genre": [
+        "Adventure",
+        "Mystery"
+      ]
+    },
+    "timestamp": "2025-02-23T15:42:25.506Z"
+  },
+  {
+    "barValues": {
+      "happy_index": 0,
+      "calm_index": 0,
+      "time_index": 1975,
+      "genre": [
+        "Fantasy"
+      ]
+    },
+    "timestamp": "2025-02-23T15:42:39.423Z"
+  },
+  {
+    "barValues": {
+      "happy_index": 0,
+      "calm_index": 0,
+      "time_index": 1975,
+      "genre": []
+    },
+    "timestamp": "2025-02-23T15:43:09.782Z"
+  },
+  {
+    "barValues": {
+      "happy_index": 0,
+      "calm_index": 0,
+      "time_index": 1975,
+      "genre": [
+        "Western"
+      ]
+    },
+    "timestamp": "2025-02-23T15:44:21.207Z"
+  },
+  {
+    "barValues": {
+      "happy_index": 0.5,
+      "calm_index": 0,
+      "time_index": 1975,
+      "genre": [
+        "Adventure"
+      ]
+    },
+    "timestamp": "2025-02-23T15:55:56.805Z"
+  },
+  {
+    "barValues": {
+      "happy_index": 0.4,
+      "calm_index": 0.6,
+      "time_index": 1975,
+      "genre": [
+        "Adventure"
+      ]
+    },
+    "timestamp": "2025-02-23T15:59:06.397Z"
   }
 ]
