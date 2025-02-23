@@ -64,7 +64,7 @@ function Home() {
 
   return (
     <div className="App">
-      <h1 style={{ marginTop: "200px" }}>Which movie do you like the most?</h1>
+      <h1 style={{ marginTop: "200px" }}>How do you feel?</h1>
       {barValues.map((value, index) => (
         <div key={index} className="slider-container">
           {index === 0 && <img src={calm} alt="calm" className="my-emoji-left" />}
@@ -99,7 +99,9 @@ function NewPage() {
   const location = useLocation();
   const { barValues, rankedMovies } = location.state || { barValues: [], rankedMovies: [] };
 
-  const movies = rankedMovies || [];
+  const movies = (rankedMovies && rankedMovies.length > 0
+    ? rankedMovies.filter((movie) => movie.Year >= barValues[2]).slice(0, 10)
+    : []);
 
   const [hoveredMovie, setHoveredMovie] = useState(null);
   const [movieHovered, setMovieHovered] = useState(false);
@@ -138,15 +140,6 @@ function NewPage() {
     <div className="App">
       <h1>Here are your results!</h1>
 
-      {/* <h3>User Inputs:</h3>
-      <ul>
-        {Object.entries(barValues).map(([key, value]) => (
-          <li key={key}>
-            {key}: {value}
-          </li>
-        ))}
-      </ul> */}
-
       {/* Movie Carousel */}
       <div
         className="relative w-full h-80 overflow-hidden bg-black"
@@ -165,18 +158,25 @@ function NewPage() {
             <motion.div
               key={index}
               className="relative w-48 h-72 shrink-0 cursor-pointer"
-              onMouseEnter={() => setHoveredMovie(movie.id)}
+              onMouseEnter={() => setHoveredMovie(index)}  // Use index instead of movie.id
               onMouseLeave={() => setHoveredMovie(null)}
-              animate={hoveredMovie === movie.id ? { scale: 1.1 } : { scale: 1 }}
+              animate={hoveredMovie === index ? { scale: 1.1 } : { scale: 1 }} // Compare with index
               transition={{ duration: 0.3 }}
             >
               <img src={movie.Poster} alt={movie.Title} className="w-full h-full object-cover" />
               <h3 className="absolute bottom-4 left-4 text-white">{movie.Title}</h3>
+
+              {/* Display Plot and Year only for the hovered movie */}
+              {hoveredMovie === index && (
+                <div className="absolute bottom-0 left-0 bg-black bg-opacity-70 text-white p-4 w-full">
+                  <p>{movie.Plot}</p>
+                  <p>{movie.Year}</p>
+                </div>
+              )}
             </motion.div>
           ))}
         </motion.div>
       </div>
-
     </div>
   );
 }
