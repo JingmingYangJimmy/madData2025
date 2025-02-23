@@ -15,7 +15,7 @@ import { motion, useAnimation } from "framer-motion";
 
 function Home() {
 
-  const labels = ["Happy or Sad?", "Calm or Tense", "Which year you want to watch?"];
+  const labels = ["Sad or Happy?", "Tense or Calm?", "Which year you want to watch?"];
   const [barValues, setBarValues] = useState([0, 0, 1975]);
   const navigate = useNavigate(); 
 
@@ -64,7 +64,7 @@ function Home() {
 
   return (
     <div className="App">
-      <h1 style={{ marginTop: "200px" }}>Which movie do you like the most?</h1>
+      <h1 style={{ marginTop: "200px" }}>How do you feel?</h1>
       {barValues.map((value, index) => (
         <div key={index} className="slider-container">
           {index === 0 && <img src={happy} alt="calm" className="my-emoji-left" />}
@@ -75,8 +75,8 @@ function Home() {
             {labels[index]}: {value}
           </label>
 
-          {index === 0 && <img src={sad} alt="sad" className="my-emoji-right" />}
-          {index === 1 && <img src={anger} alt="anger" className="my-emoji-right" />}
+          {index === 0 && <img src={happy} alt="happy" className="my-emoji-right" />}
+          {index === 1 && <img src={calm} alt="calm" className="my-emoji-right" />}
           {index === 2 && <img src={smartphone} alt="smartphone" className="my-emoji-right" />}
 
           <br />
@@ -99,7 +99,9 @@ function NewPage() {
   const location = useLocation();
   const { barValues, rankedMovies } = location.state || { barValues: [], rankedMovies: [] };
 
-  const movies = (rankedMovies || []).slice(0, 10);
+  const movies = (rankedMovies && rankedMovies.length > 0
+    ? rankedMovies.filter((movie) => movie.Year >= barValues[2]).slice(0, 10)
+    : []);
 
   const [hoveredMovie, setHoveredMovie] = useState(null);
   const [movieHovered, setMovieHovered] = useState(false);
@@ -156,16 +158,16 @@ function NewPage() {
             <motion.div
               key={index}
               className="relative w-48 h-72 shrink-0 cursor-pointer"
-              onMouseEnter={() => setHoveredMovie(movie.id)}
+              onMouseEnter={() => setHoveredMovie(index)}  // Use index instead of movie.id
               onMouseLeave={() => setHoveredMovie(null)}
-              animate={hoveredMovie === movie.id ? { scale: 1.1 } : { scale: 1 }}
+              animate={hoveredMovie === index ? { scale: 1.1 } : { scale: 1 }} // Compare with index
               transition={{ duration: 0.3 }}
             >
               <img src={movie.Poster} alt={movie.Title} className="w-full h-full object-cover" />
               <h3 className="absolute bottom-4 left-4 text-white">{movie.Title}</h3>
 
-              {/* Display Plot and Year when hovered */}
-              {hoveredMovie === movie.id && (
+              {/* Display Plot and Year only for the hovered movie */}
+              {hoveredMovie === index && (
                 <div className="absolute bottom-0 left-0 bg-black bg-opacity-70 text-white p-4 w-full">
                   <p>{movie.Plot}</p>
                   <p>{movie.Year}</p>
