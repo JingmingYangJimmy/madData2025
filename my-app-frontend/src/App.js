@@ -5,15 +5,17 @@ import happy from './images/happy.png';
 import sad from './images/sad.png';
 import anger from './images/anger.png';
 import calm from './images/calm.png';
-import disguest from './images/disguest.png';
-import fear from './images/fear.png';
-import surprise from './images/surprise.png';
-import trust from './images/trust.png';
+// import disguest from './images/disguest.png';
+// import fear from './images/fear.png';
+// import surprise from './images/surprise.png';
+// import trust from './images/trust.png';
+import dinosaur from './images/dinosaur.png'
+import smartphone from './images/smartphone.png'
 
 function Home() {
 
-  const labels = ["Sad or Happy?", "Fear or Angry?", "Surprise or Boredom?", "Which year you want to watch?"];
-  const [barValues, setBarValues] = useState([0, 0, 0, 1975]);
+  const labels = ["Happy or Sad?", "Calm or Tense", "Which year you want to watch?"];
+  const [barValues, setBarValues] = useState([0, 0, 1975]);
   const navigate = useNavigate(); 
 
   const handleSliderChange = useCallback((index, newValue) => {
@@ -64,25 +66,24 @@ function Home() {
       <h1 style={{ marginTop: "200px" }}>Which movie do you like the most?</h1>
       {barValues.map((value, index) => (
         <div key={index} className="slider-container">
-          {index === 0 && <img src={happy} alt="happy" className="my-emoji-left" />}
-          {index === 1 && <img src={fear} alt="sad" className="my-emoji-left" />}
-          {index === 2 && <img src={surprise} alt="surprise" className="my-emoji-left" />}
-          {index === 3 && <img src={trust} alt="anxious" className="my-emoji-left" />}
+          {index === 0 && <img src={calm} alt="calm" className="my-emoji-left" />}
+          {index === 1 && <img src={happy} alt="happy" className="my-emoji-left" />}
+          {index === 2 && <img src={dinosaur} alt="old" className="my-emoji-left" />}
 
           <label style={{ fontSize: "35px" }}>
             {labels[index]}: {value}
           </label>
 
-          {index === 0 && <img src={sad} alt="neutral" className="my-emoji-right" />}
-          {index === 1 && <img src={anger} alt="angry" className="my-emoji-right" />}
-          {index === 2 && <img src={calm} alt="bored" className="my-emoji-right" />}
-          {index === 3 && <img src={disguest} alt="calm" className="my-emoji-right" />}
+          {index === 0 && <img src={sad} alt="sad" className="my-emoji-right" />}
+          {index === 1 && <img src={anger} alt="anger" className="my-emoji-right" />}
+          {index === 2 && <img src={smartphone} alt="smartphone" className="my-emoji-right" />}
 
           <br />
           <input
             type="range"
-            min="-10"
-            max="10"
+            min={index === 2 ? "1920" : "-1"}
+            max={index === 2 ? "2025" : "1"}
+            step={index === 2 ? "1" : "0.1"}
             value={value}
             onChange={(e) => handleSliderChange(index, e.target.value)}
           />
