@@ -1,23 +1,19 @@
-import React, { useState, useCallback, useEffect, useRef } from 'react';
-import { BrowserRouter as Router, Route, Routes, useNavigate, useLocation } from 'react-router-dom';
+import React, { useState, useCallback } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './App.css';
-import happy from './images/happy.png';
-import sad from './images/sad.png';
-import anger from './images/anger.png';
-import calm from './images/calm.png';
-// import disguest from './images/disguest.png';
-// import fear from './images/fear.png';
-// import surprise from './images/surprise.png';
-// import trust from './images/trust.png';
-import dinosaur from './images/dinosaur.png'
-import smartphone from './images/smartphone.png'
-import { motion, useAnimation } from "framer-motion";
 
 function Home() {
-
   const labels = ["Happy or Sad?", "Calm or Tense", "Which year you want to watch?"];
   const [barValues, setBarValues] = useState([0, 0, 1975]);
-  const navigate = useNavigate(); 
+  const [likedGenres, setLikedGenres] = useState([]);
+  const [dislikedGenres, setDislikedGenres] = useState([]);
+  const [keepMood, setKeepMood] = useState(false);
+  const [yearRange, setYearRange] = useState([1920, 2025]);
+  const navigate = useNavigate();
+
+  const genres = [
+    "Action", "Comedy", "Drama", "Horror", "Sci-Fi", "Romance", "Thriller", "Adventure", "Fantasy"
+  ];
 
   const handleSliderChange = useCallback((index, newValue) => {
     setBarValues(prevValues => {
@@ -27,9 +23,25 @@ function Home() {
     });
   }, []);
 
+  const handleGenreSelection = (genre, type) => {
+    if (type === 'like') {
+      if (likedGenres.includes(genre)) {
+        setLikedGenres(likedGenres.filter(item => item !== genre));
+      } else if (likedGenres.length < 3) {
+        setLikedGenres([...likedGenres, genre]);
+      }
+    } else {
+      if (dislikedGenres.includes(genre)) {
+        setDislikedGenres(dislikedGenres.filter(item => item !== genre));
+      } else {
+        setDislikedGenres([...dislikedGenres, genre]);
+      }
+    }
+  };
+
   const handleConfirm = async () => {
     console.log('Storing values into the database:', barValues);
-  
+
     try {
       const keyMap = ["happy_index", "calm_index", "time_index"];
       const formattedData = barValues.reduce((acc, value, index) => {
@@ -44,18 +56,18 @@ function Home() {
         },
         body: JSON.stringify({ barValues: formattedData }) // Send as an object
       });
-  
+
       if (!response.ok) {
         const errorText = await response.text(); // Handle non-JSON errors
         throw new Error(`HTTP error! Status: ${response.status} - ${errorText}`);
       }
-  
+
       const data = await response.json();
       console.log('Stored successfully:', data);
 
       // Pass the movie data to the new page via navigate
       navigate('/new-page', { state: { barValues, rankedMovies: data.rankedMovies } });
-  
+
     } catch (error) {
       console.log("That is an error!");
       console.error('Error storing values:', error.message);
@@ -65,20 +77,45 @@ function Home() {
   return (
     <div className="App">
       <h1 style={{ marginTop: "200px" }}>How do you feel?</h1>
+
+      {/* Genre Selection for "Like" */}
+      <div>
+        <h2>What Genres Do You Like? (Max 3)</h2>
+        <div className="genre-slider">
+          {genres.map((genre, index) => (
+            <div
+              key={index}
+              className={`genre-box ${likedGenres.includes(genre) ? 'selected' : ''}`}
+              onClick={() => handleGenreSelection(genre, 'like')}
+            >
+              {genre}
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Genre Selection for "Dislike" */}
+      <div>
+        <h2>What Genres Do You Dislike?</h2>
+        <div className="genre-slider">
+          {genres.map((genre, index) => (
+            <div
+              key={index}
+              className={`genre-box ${dislikedGenres.includes(genre) ? 'selected' : ''} ${likedGenres.includes(genre) ? 'disabled' : ''}`}
+              onClick={() => handleGenreSelection(genre, 'dislike')}
+            >
+              {genre}
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Mood Sliders */}
       {barValues.map((value, index) => (
         <div key={index} className="slider-container">
-          {index === 0 && <img src={calm} alt="calm" className="my-emoji-left" />}
-          {index === 1 && <img src={happy} alt="happy" className="my-emoji-left" />}
-          {index === 2 && <img src={dinosaur} alt="old" className="my-emoji-left" />}
-
           <label style={{ fontSize: "35px" }}>
             {labels[index]}: {value}
           </label>
-
-          {index === 0 && <img src={sad} alt="sad" className="my-emoji-right" />}
-          {index === 1 && <img src={anger} alt="anger" className="my-emoji-right" />}
-          {index === 2 && <img src={smartphone} alt="smartphone" className="my-emoji-right" />}
-
           <br />
           <input
             type="range"
@@ -90,10 +127,43 @@ function Home() {
           />
         </div>
       ))}
+
+      {/* Checkbox for Mood */}
+      <div>
+        <input
+          type="checkbox"
+          checked={keepMood}
+          onChange={() => setKeepMood(!keepMood)}
+        />
+        <label>Do You Want To Keep Your Mood?</label>
+      </div>
+
+      {/* Year Range Slider */}
+      <div>
+        <h2>{labels[2]}</h2>
+        <input
+          type="range"
+          min={1920}
+          max={2025}
+          value={yearRange[0]}
+          onChange={(e) => setYearRange([e.target.value, yearRange[1]])}
+        />
+        <input
+          type="range"
+          min={1920}
+          max={2025}
+          value={yearRange[1]}
+          onChange={(e) => setYearRange([yearRange[0], e.target.value])}
+        />
+        <p>{`Year Range: ${yearRange[0]} - ${yearRange[1]}`}</p>
+      </div>
+
       <button onClick={handleConfirm}>Confirm</button>
     </div>
   );
 }
+
+export default Home;
 
 function NewPage() {
   const location = useLocation();
