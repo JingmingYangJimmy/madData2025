@@ -78,8 +78,8 @@ function Home() {
       <h1 style={{ marginTop: "200px" }}>How do you feel?</h1>
       {barValues.map((value, index) => (
         <div key={index} className="slider-container">
-          {index === 0 && <img src={sad} alt="sad" className="my-emoji-left" />}
-          {index === 1 && <img src={anger} alt="anger" className="my-emoji-left" />}
+          {index === 0 && <img src={happy} alt="calm" className="my-emoji-left" />}
+          {index === 1 && <img src={calm} alt="happy" className="my-emoji-left" />}
           {index === 2 && <img src={dinosaur} alt="old" className="my-emoji-left" />}
 
           <label style={{ fontSize: "35px" }}>
