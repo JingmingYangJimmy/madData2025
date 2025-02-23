@@ -20,7 +20,7 @@ def get_emotional_ratings(api_key, OMDb_response):
                         "text": """Instructions:
     I am building a movie recommender system based on emotions. 
     Complete the AI's message for the second movie with JSON format, 
-    3 scales (Sad_to_Happy, Fear_to_Anger, Anxious_to_Calm), -1 to 1. 
+    2 scales (Sad_to_Happy, Tense_to_Calm), -1 to 1. The values should be between -1 and 1, where -1 indicates the most negative emotion (Sad or Tense) and 1 indicates the most positive emotion (Happy or Calm).
     Include a "Reasoning" field explaining your emotional rating choices.
     ---
     Here are some examples.
@@ -53,8 +53,7 @@ def get_emotional_ratings(api_key, OMDb_response):
         "Title": "The Secret Life of Walter Mitty",
         "EmotionalRatings": {
             "Sad_to_Happy": 0.6,
-            "Fear_to_Anger": -0.3,
-            "Anxious_to_Calm": 0.5
+            "Tense_to_Calm": 0.7,
         },
         "Reasoning": "The film has a strong uplifting and adventurous tone, emphasizing personal growth and fulfillment, hence a higher 'Sad_to_Happy' score. While there are moments of professional stress and some minor dangers, the film avoids intense fear or anger. The overall journey is one of self-discovery and finding peace, leading to a significant calming effect."
     }
@@ -89,8 +88,7 @@ def get_emotional_ratings(api_key, OMDb_response):
         "EmotionalRatings": 
         { 
             "Sad_to_Happy": 0.2, 
-            "Fear_to_Anger": -0.1, 
-            "Anxious_to_Calm": -0.4 
+            "Tense_to_Calm": -0.5 
         },
         "Reasoning": "While the character is given a second chance, the premise of a hitman dealing with the consequences of his actions and being tasked with dangerous assignments creates a sense of tension and underlying sadness. There's a minimal presence of anger, but the overall tone is steeped in anxiety and unease, as the character navigates a morally ambiguous world. The 'Anxious_to_Calm' rating is lowered to reflect this constant state of tension."
     }""" + str(OMDb_response) + """
@@ -129,5 +127,5 @@ if __name__ == "__main__":
     OMDb_file = sys.argv[2]
     with open(OMDb_file, 'r') as file:
         movies_data = json.load(file)
-        for movie in movies_data[0:10]:
-            get_emotional_ratings(api_key, movie_jsons)
+        for movie in movies_data:
+            get_emotional_ratings(api_key, movie)
