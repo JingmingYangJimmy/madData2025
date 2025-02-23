@@ -19,6 +19,9 @@
 .env.production.local
 .venv
 
+# user data, will have to erase and delete if values change
+data.json 
+
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
