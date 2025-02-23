@@ -99,7 +99,9 @@ function NewPage() {
   const location = useLocation();
   const { barValues, rankedMovies } = location.state || { barValues: [], rankedMovies: [] };
 
-  const movies = (rankedMovies || []).slice(0, 10);
+  const movies = (rankedMovies && rankedMovies.length > 0
+    ? rankedMovies.filter((movie) => movie.Year >= barValues[2]).slice(0, 10)
+    : []);
 
   const [hoveredMovie, setHoveredMovie] = useState(null);
   const [movieHovered, setMovieHovered] = useState(false);
