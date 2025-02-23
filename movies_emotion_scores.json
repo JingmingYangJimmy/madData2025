@@ -1975,4 +1975,3 @@
 {"Title": "Smolensk", "imdbID": "tt6038600", "Year": "2016", "YearMetric": 0.83, "AggregatedEmotion": {"Sad-Happy": -0.5513338962259392, "Tense-Calm": -0.5897289878378312}}
 {"Title": "Snake Eyes", "imdbID": "tt0120832", "Year": "1998", "YearMetric": 0.49, "AggregatedEmotion": {"Sad-Happy": 0.08629885619800341, "Tense-Calm": -0.5390107572862977}}
 {"Title": "Smokin' Aces", "imdbID": "tt0475394", "Year": "2006", "YearMetric": 0.64, "AggregatedEmotion": {"Sad-Happy": 0.027693538119395573, "Tense-Calm": -0.515192785486579}}
->>>>>>> 7506d3f59cfbbe719e8e14ad8e9e1e26765f0abf
