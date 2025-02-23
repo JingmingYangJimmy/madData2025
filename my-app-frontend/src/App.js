@@ -103,6 +103,7 @@ function NewPage() {
     ? rankedMovies.filter((movie) => movie.Year >= barValues[2]).slice(0, 10)
     : []);
 
+  const [showMore, setShowMore] = useState(false);
   const [hoveredMovie, setHoveredMovie] = useState(null);
   const [movieHovered, setMovieHovered] = useState(false);
   const movieControls = useAnimation();
@@ -176,6 +177,36 @@ function NewPage() {
             </motion.div>
           ))}
         </motion.div>
+      {/* Show More Button */}
+      <button
+        className="mt-6 px-6 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-700 transition"
+        onClick={() => setShowMore(!showMore)}
+      >
+      {showMore ? "Show Less" : "Show More"}
+      </button>
+
+      {/* Grid of Extra Movies */}
+      {showMore && (
+        <div className="grid grid-cols-4 gap-6 mt-6">
+          {rankedMovies.slice(10).map((movie, index) => (
+            <div
+              key={index}
+              className="relative w-48 h-72 cursor-pointer"
+              onMouseEnter={() => setHoveredMovie(index + 10)}
+              onMouseLeave={() => setHoveredMovie(null)}
+            >
+              {hoveredMovie === index + 10 ? (
+                <div className="absolute inset-0 bg-black bg-opacity-80 flex flex-col items-center justify-center p-4 text-white">
+                  <p className="text-sm text-center">{movie.Plot}</p>
+                  <p className="text-sm">{movie.Year}</p>
+                </div>
+              ) : (
+                <img src={movie.Poster} alt={movie.Title} className="w-full h-full object-cover" />
+              )}
+            </div>
+          ))}
+        </div>
+      )}
       </div>
     </div>
   );
