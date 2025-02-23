@@ -64,7 +64,7 @@ function Home() {
 
   return (
     <div className="App">
-      <h1 style={{ marginTop: "200px" }}>Which movie do you like the most?</h1>
+      <h1 style={{ marginTop: "200px" }}>How do you feel?</h1>
       {barValues.map((value, index) => (
         <div key={index} className="slider-container">
           {index === 0 && <img src={calm} alt="calm" className="my-emoji-left" />}
